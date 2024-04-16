@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lakecat.web.mapper.TableTagInfoMapper">
+
+
+    <!-- 通用查询结果列 -->
+    <update id="batchUpdateForTags" parameterType="java.util.List">
+        <foreach collection="list" item="data" index="index" separator=";">
+            update table_info set
+            `last_activity_count`=#{data.lastActivityCount},`transient_lastDdlTime`=#{data.transientLastDdlTime}
+            where id=#{data.id}
+        </foreach>
+    </update>
+
+
+    <insert id="batchSaveForTags" parameterType="java.util.List">
+        INSERT INTO table_tag_info ( `table_id`,`sole`,`key`,`value` )
+        values
+        <foreach collection="list" item="data" separator=",">
+            (#{data.tableId},#{data.sole},#{data.key},#{data.value})
+        </foreach>
+        on duplicate key update
+        `value`= VALUES(value)
+    </insert>
+</mapper>

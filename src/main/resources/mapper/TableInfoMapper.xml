@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lakecat.web.mapper.TableInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lakecat.web.entity.TableInfo">
+        <id column="id" property="id"/>
+        <result column="create_type" property="createType"/>
+        <result column="region" property="region"/>
+        <result column="type" property="type"/>
+        <result column="db_name" property="dbName"/>
+        <result column="subject" property="subject"/>
+        <result column="update_type" property="updateType"/>
+        <result column="interval" property="interval"/>
+        <result column="cn_name" property="cnName"/>
+        <result column="description" property="description"/>
+        <result column="partition_type" property="partitionType"/>
+        <result column="lifecycle" property="lifecycle"/>
+        <result column="name" property="name"/>
+        <result column="columns" property="columns"/>
+        <result column="partitionKeys" property="partitionKeys"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="status" property="status"/>
+        <result column="owner" property="owner"/>
+        <result column="location" property="location"/>
+        <result column="application" property="application"/>
+        <result column="num_rows" property="num_rows"/>
+        <result column="byte_size" property="byte_size"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_type, region, `type`, db_name, subject, update_type, `interval`, cn_name, description, partition_type, lifecycle, `name`, `columns`, partitionKeys, create_time, update_time, status, owner, hierarchical
+        location, application, num_rows, byte_size
+    </sql>
+
+
+    <!-- 通用查询结果列 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="data" index="index" separator=";">
+            update table_info set `last_activity_count`=#{data.lastActivityCount},`transient_lastDdlTime`=#{data.transientLastDdlTime}
+            where id=#{data.id}
+        </foreach>
+    </update>
+
+    <insert id="batchSave" parameterType="java.util.List">
+        INSERT INTO table_info (`region`,`db_name`,`name`,`create_type`, `type`,  `description`, `partition_type`, `lifecycle`,
+        `columns`, `partition_keys`, `location`, `sd_file_format`, `status`,
+        `owner` )
+        values
+        <foreach collection="list" item="data" separator=",">
+            (#{data.region},#{data.dbName},#{data.name},#{data.createType},  #{data.type},  #{data.description},
+            #{data.partitionType}, #{data.lifecycle},
+            #{data.columns},#{data.partitionKeys},#{data.location},
+            #{data.sdFileFormat},#{data.status},#{data.owner})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        `create_type` = VALUES(`create_type`),
+        `type` = VALUES(`type`),
+        `description` = VALUES(`description`),
+        `partition_type` = VALUES(`partition_type`),
+        `lifecycle` = VALUES(`lifecycle`),
+        `columns` = VALUES(`columns`),
+        `partition_keys` = VALUES(`partition_keys`),
+        `location` = VALUES(`location`),
+        `sd_file_format` = VALUES(`sd_file_format`),
+        `status` = VALUES(`status`),
+        `owner` = VALUES(`owner`)
+    </insert>
+
+
+    <insert id="batchSaveForUsers" parameterType="java.util.List">
+        INSERT INTO last_activity_info ( sole,table_name,db_name,region, user_id, `sum_count`, avg_count,
+        recently_visited_timestamp, status )
+        values
+        <foreach collection="list" item="data" separator=",">
+            (#{data.sole},#{data.tableName},#{data.dbName},#{data.region}, #{data.userId}, #{data.sumCount}, #{data.avgCount},
+            #{data.recentlyVisitedTimestamp},
+            #{data.status})
+        </foreach>
+        on duplicate key update
+        sum_count= VALUES(sum_count),
+        avg_count=VALUES(avg_count),
+        recently_visited_timestamp=VALUES(recently_visited_timestamp)
+    </insert>
+
+
+    <insert id="batchSaveForRoles" parameterType="java.util.List">
+        INSERT INTO role_owner_relevance ( project_id,role_name,role_id, comment, `created_time`, user_name )
+        values
+        <foreach collection="list" item="data" separator=",">
+            (#{data.projectId},#{data.roleName},#{data.roleId}, #{data.comment}, #{data.createdTime}, #{data.userName})
+        </foreach>
+        on duplicate key update
+        role_id= VALUES(role_id),
+        user_name= VALUES(user_name)
+    </insert>
+
+
+    <insert id="batchSaveForTables" parameterType="java.util.List">
+        INSERT INTO role_table_relevance ( role_id,role_name,privilege, granted_on, `name`)
+        values
+        <foreach collection="list" item="data" separator=",">
+            (#{data.roleId},#{data.roleName},#{data.privilege}, #{data.grantedOn}, #{data.name})
+        </foreach>
+        on duplicate key update
+        role_id= VALUES(role_id),
+        name= VALUES(name)
+    </insert>
+
+
+    <insert id="updateOrInsertClientInfo" useGeneratedKeys="true" keyProperty="BM" parameterType="list">
+        replace into bm_kh
+        (<include refid="Base_Column_List"/>)
+        VALUES
+        <foreach collection="list" item="it" separator=",">
+            ( #{it.bm},#{it.mc},#{it.jm},
+            #{it.sjbm},#{it.kjm},#{it.sh},
+            #{it.dzdh},#{it.jwbz},#{it.yhzh},
+            #{it.yjdz},#{it.bz},#{it.yskm},
+            #{it.dqbm},#{it.dqmc},#{it.dqkm},
+            #{it.sfzjy},#{it.wj},#{it.xfsh},
+            #{it.xfzfjh}
+
+            )
+
+        </foreach>
+
+    </insert>
+
+
+    <select id="showDatabases" resultType="string">
+    show databases
+  </select>
+
+
+    <select id="">
+
+    </select>
+
+</mapper>

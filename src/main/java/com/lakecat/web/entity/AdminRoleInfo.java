@@ -1,0 +1,134 @@
+package com.lakecat.web.entity;
+
+import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import org.apache.hadoop.yarn.webapp.hamlet.Hamlet;
+
+import java.io.Serializable;
+
+/**
+ * <p>
+ *
+ * </p>
+ *
+ * @author mybatis-plus-generator
+ * @since 2021-12-13
+ */
+@Data
+public class AdminRoleInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+
+    /**
+     * 工单id
+     */
+    private String workOrderId;
+
+
+    /**
+     * 工单类型
+     */
+    private String orderType;
+
+    /**
+     * 个人or角色
+     */
+    private Integer type;
+    /**
+     * 租户名
+     */
+    private String tenantName;
+    /**
+     * 赋权单元
+     */
+    private String objectName;
+
+
+    /**
+     * 赋权单元集合
+     */
+    private String[] objectNames;
+
+    /**
+     * 赋权类型 db  table
+     */
+    private String objectType;
+
+
+    /**
+     * 赋权类型 查询等operation,可用值:CREATE_CATALOG,DROP_CATALOG,ALTER_CATALOG,DESC_CATALOG,SHOW_CATALOG,USE_CATALOG,CREATE_BRANCH,USE_BRANCH,SHOW_BRANCH,MERGE_BRANCH,CREATE_DATABASE,DROP_DATABASE,UNDROP_DATABASE,ALTER_DATABASE,SHOW_DATABASE,DESC_DATABASE,USE_DATABASE,CREATE_TABLE,GET_TABLE_META,TRUNCATE_TABLE,DROP_TABLE,PURGE_TABLE,UNDROP_TABLE,RESTORE_TABLE,ALTER_TABLE,GET_TABLE_NAMES,SHOW_TABLE,DESC_TABLE,SHOW_CREATE_TABLE,SHOW_COLUMN,ALTER_COLUMN,ADD_COLUMN,DROP_COLUMN,RENAME_COLUMN,REPLACE_COLUMN,CHANGE_COLUMN,SET_PROPERTIES,UNSET_PROPERTIES,UPDATE,DELETE,CREATE_VIEW,ALTER_VIEW,DROP_VIEW,SHOW_VIEW,DESC_VIEW,CREATE_SHARE,ALTER_SHARE,DROP_SHARE,SHOW_SHARE,DESC_SHARE,CREATE_ROLE,ALTER_ROLE,DROP_ROLE,DESC_ROLE,SHOW_ROLE,CREATE_STREAM,SHOW_STREAMS,DESC_STREAM,START_STREAM,STOP_STREAM,DROP_STREAM,CREATE_ACCELERATOR,SHOW_ACCELERATORS,DROP_ACCELERATOR,ALTER_ACCELERATOR,CREATE_DELEGATE,DESC_DELEGATE,DROP_DELEGATE,SHOW_DELEGATES,ADD_ALL_OPERATION,REVOKE_ALL_OPERATION,REVOKE_ALL_OPERATION_FROM_ROLE,SHOW_JOB_HISTORY,SHOW_ACCESS_STATS_FOR_CATALOG,DESC_ACCESS_STATS_FOR_TABLE,SHOW_DATA_LINEAGE_FOR_TABLE,REVOKE_SHARE_FROM_USER,GRANT_SHARE_TO_USER,SHOW_DATABASE_HISTORY,ATTACH_ENGINE,DETACH_ENGINE,USE_ENGINE,SHOW_ENGINES,SET_CONFIGURATION,UNSET_CONFIGURATION,CREATE_FUNCTION,DROP_FUNCTION,ALTER_FUNCTION,GET_FUNCTION,ALTER_PRIVILEGE,SHOW_PRIVILEGES,GET_PRIVILEGES_CHANGE_RECORD,GET_PRIVILEGES_BY_ID,CREATE_MATERIALIZED_VIEW,DROP_MATERIALIZED_VIEW,REFRESH_MATERIALIZED_VIEW,SHOW_MATERIALIZED_VIEWS,DESC_MATERIALIZED_VIEW,ALTER_MATERIALIZED_VIEW,INSERT_TABLE,INSERT_OVERWRITE,CREATE_TABLE_AS_SELECT,DATA_GEN,ADD_PARTITION,DROP_PARTITION,DROP_PARTITIONS_BY_EXPR,TRUNCATE_PARTITION,ALTER_PARTITION,RENAME_PARTITION,COPY_INTO,APPEND_PARTITION,ADD_PARTITIONS,DELETE_PARTITION_COLUMN_STATISTICS,GET_PARTITION_COLUMN_STATISTICS,SET_PARTITION_COLUMN_STATISTICS,GET_AGGREGATE_PARTITIONS_COLUMN_STATISTICS,GET_PARTITION,GET_PARTITION_WITH_AUTH,GET_PARTITIONS_BY_NAMES,LIST_PARTITIONS_BY_EXPR,LIST_PARTITIONS_WITH_AUTH,UPDATE_PARTITION_COLUMN_STATISTICS,UPDATE_TABLE_COLUMN_STATISTICS,DELETE_TABLE_COLUMN_STATISTICS,SELECT_TABLE,SELECT_VIEW,SELECT_SHARE,EXPLAIN,ADD_TOKEN,ALTER_TOKEN,DELETE_TOKEN,GET_TOKEN,LIST_TOKEN,GET_PRIMARY_KEYS,GET_FOREIGN_KEYS,GET_CONSTRAINTS,ADD_PRIMARY_KEYS,ADD_FOREIGN_KEYS,ADD_CONSTRAINTS,ALTER_CONSTRAINT,DROP_CONSTRAINT,ILLEGAL_OPERATION,NULL_OPERATION_AUTHORIZED,COMPACT_TABLE,REWRITE_SQL
+     */
+    private String[] operation;
+
+
+    /**
+     * 角色拥有用户
+     */
+    private String ownerUser;
+
+
+    /**
+     * 角色名
+     */
+    private String roleName;
+
+
+    /**
+     * 个人角色用户名
+     */
+    private String userName;
+
+
+    /**
+     * 用户集合
+     */
+    private String[] userId;
+
+
+    /**
+     * 原因
+     */
+    private String reason;
+
+    /**
+     * 周期
+     */
+    private Integer cycle;
+
+
+    /**
+     * 说明
+     */
+    private String comment;
+
+
+    /**
+     * 管理员操作类型 赋权 or 申请
+     */
+    private String opt;
+
+
+    /**
+     * 表owner
+     */
+    private String owner;
+
+
+    /**
+     * 是否钉钉通知
+     */
+    private String flag;
+
+
+    /**
+     * //申请人leader 也是第一确认人
+     */
+    private String sqrleader;
+}
